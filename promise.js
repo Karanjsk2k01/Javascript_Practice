@@ -40,29 +40,34 @@ function updateLastUserActivityTime() {
 }
 
 
-createPost('First Post')
-  .then(() => createPost('Second Post'))
-  .then(() => createPost('Third Post'))
-  .then(updateLastUserActivityTime)
-  .then(() => {
-    for (let i = 0; i < blog.length; i++) {
-      const element = blog[i].title;
-      console.log(element);
-    }
-    console.log(lastActivityTime);
-  })
-  .then(() => deletePost()
-  )
-  .then(() => {
-    for (let i = 0; i < blog.length; i++) {
-      const element = blog[i].title;
-      console.log(element);
-    }
-    console.log(lastActivityTime);
-  })
-  .catch((error) => {
-    console.error(error.message);
-  });
+async function main() {
 
+  try {
+    await createPost('first post');
+    await createPost('second post');
+    await createPost('third post');
+    await updateLastUserActivityTime();
+
+    for (let i = 0; i < blog.length; i++) {
+      const element = blog[i].title;
+      console.log(element);
+    }
+    console.log(lastActivityTime)
+
+    await deletePost();
+
+    for (let i = 0; i < blog.length; i++) {
+      const element = blog[i].title;
+      console.log(element);
+    }
+    console.log(lastActivityTime)
+
+  } catch (error) {
+    console.log(error.message)
+  }
+
+}
+
+main()
 
 
